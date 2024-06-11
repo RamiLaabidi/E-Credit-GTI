@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import tn.gti.Authentification.DemandeCredit;
 
 import java.util.List;
+@FeignClient(name = "demandeCredit-service", url = "${application.config.demandeCredit-url}")
 
-@FeignClient(name = "demandeCredit-service", url = "${application.config.demandeCredits-url}")
+//@FeignClient(name = "demandeCredits", url = "http://localhost:8888")
+
 public interface DemandeCreditClient {
 
     @GetMapping("/user/{user-idU}")
