@@ -1,0 +1,24 @@
+package com.tn.gti.demandeDeCredit.Entities.Enum;
+
+public enum TypeP {
+
+    CARTE_IDENTITE,
+    PASSEPORT,
+    BULLETIN_SALAIRE,
+    ATTESTATION_EMPLOI,
+    RELEVE_BANCAIRE,
+
+    // Spécifiques au Prêt Automobile
+    DEVIS_VEHICULE,
+    PREUVE_ASSURANCE,
+
+    // Garanties
+    DOCUMENT_HYPOTHEQUE,
+    DOCUMENT_CESSION_CREANCES,
+    DOCUMENT_ASSURANCE_VIE,
+    DOCUMENT_CESSION_CONTRATS,
+    DOCUMENT_STOCK_MARCHANDISES,
+
+
+
+}
