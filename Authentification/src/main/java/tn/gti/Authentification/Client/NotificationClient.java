@@ -3,14 +3,15 @@ package tn.gti.Authentification.Client;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import tn.gti.Authentification.DemandeCredit;
+import tn.gti.Authentification.Notification;
 
 import java.util.List;
-@FeignClient(name = "demandeCredit-service", url = "${application.config.demandeCredit-url}")
+
+@FeignClient(name = "notification-service", url = "${application.config.notification-url}")
 
 
-public interface DemandeCreditClient {
+public interface NotificationClient {
 
     @GetMapping("/user/{user-idU}")
-    List<DemandeCredit> findAlldemandeCreditsByUser(@PathVariable("user-idU") Long idU);
+    List<Notification> findAllNotificationsByUser(@PathVariable("user-idU") Long idU);
 }

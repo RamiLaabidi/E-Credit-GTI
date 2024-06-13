@@ -53,10 +53,13 @@ public class UserRestController {
    //////////////////////////////////////////////////////////////////////////////
 
     @GetMapping("/with-demandeCredit/{user-idU}")
-    public ResponseEntity<FullUserResponse> findAllUsers(
-            @PathVariable("user-idU") Long idU
-    ) {
+    public ResponseEntity<FullUserResponse> findAllUsers(@PathVariable("user-idU") Long idU) {
         return ResponseEntity.ok(iUserService.findUserWithdemandeCredits(idU));
+    }
+
+    @GetMapping("/with-notification/{user-idU}")
+    public ResponseEntity<FullUserResponseForNotifications> findAllUsersNotif(@PathVariable("user-idU") Long idU) {
+        return ResponseEntity.ok(iUserService.findUserWithnotifications(idU));
     }
 }
     

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tn.gti.Authentification.Client.DemandeCreditClient;
+import tn.gti.Authentification.Client.NotificationClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ public class UserService implements IUserService{
 
     private final IUserRepository iUserRepository;
     private final DemandeCreditClient client;
+    private  final NotificationClient notificationClient;
 
 
 
@@ -66,6 +68,25 @@ public class UserService implements IUserService{
                 .demandeCredits(demandeCredits)
                 .build();
     }
+
+
+    public FullUserResponseForNotifications  findUserWithnotifications(Long idU) {
+        var user = iUserRepository.findById(idU)
+                .orElse(
+                        User.builder()
+                                .nom("NOT_FOUND")
+                                .prenom("NOT_FOUND")
+                                .build()
+                );
+        var notifications = notificationClient.findAllNotificationsByUser(idU);
+        return FullUserResponseForNotifications.builder()
+                .name(user.getNom())
+                .prenom(user.getPrenom())
+                .notifications(notifications)
+                .build();
+    }
+
+
 
     }
 

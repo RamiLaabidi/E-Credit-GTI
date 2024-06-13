@@ -14,4 +14,5 @@ public interface IUserService {
 
     User getUserById(Long idU);
     FullUserResponse  findUserWithdemandeCredits(Long idU);
+    FullUserResponseForNotifications  findUserWithnotifications(Long idU);
 }

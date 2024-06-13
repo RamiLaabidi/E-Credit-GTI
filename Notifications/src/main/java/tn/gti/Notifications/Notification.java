@@ -16,7 +16,7 @@ public class Notification implements Serializable {
 
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
-     Long id;
+     Long idN;
      String titre;
      String message;
      Date dateCreation;
@@ -25,6 +25,9 @@ public class Notification implements Serializable {
      @Enumerated(EnumType.STRING)
      TypeNotification type;
      String url;
+
+     Long idU;
+
 
 
 }

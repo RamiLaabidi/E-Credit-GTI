@@ -9,10 +9,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FullUserResponse {
+public class FullUserResponseForNotifications {
     private String name;
     private String prenom;
-    List<DemandeCredit> demandeCredits;
+    List<Notification> notifications;
 
 
 }
