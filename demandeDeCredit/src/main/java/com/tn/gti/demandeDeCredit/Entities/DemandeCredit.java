@@ -27,8 +27,8 @@ public class DemandeCredit implements Serializable {
     TypeC typeCredit;
     @Enumerated(EnumType.STRING)
     TypeU unite;
-    float montant;
-    Integer nbrEcheances;
+    Float montant;
+    Integer duree;
     Float interet;
 
     Long idU;

@@ -38,6 +38,10 @@ public class User implements UserDetails {
     Date dateOuvertureCompte;
     Long numCin;
     String motDePasse;
+    Double revenuMensuel;
+    Double chargesMensuelles;
+    Double salaire;
+    TJob job;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

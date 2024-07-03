@@ -1,6 +1,7 @@
 package com.tn.gti.demandeDeCredit.Controlleurs;
 
 import com.tn.gti.demandeDeCredit.Entities.DemandeCredit;
+import com.tn.gti.demandeDeCredit.Entities.Enum.TypeU;
 import com.tn.gti.demandeDeCredit.Services.IDemandeCreditService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,30 @@ public class DemandeCreditRestController {
     ) {
         return ResponseEntity.ok(iDemandeCreditService.findAllDemandeCreditsByUser(idU));
     }
+
+
+    @GetMapping("/simulate")
+    public Float simulate(
+            @RequestParam Float montant,
+            @RequestParam Integer duree,
+            @RequestParam Float interet,
+            @RequestParam TypeU unite) {
+        return iDemandeCreditService.simulateur(montant, duree, interet, unite);
+    }
+
+
+
+
+
+    @PostMapping("/user/{idU}")
+    public ResponseEntity<DemandeCredit> createDemandeCredit(@PathVariable("idU") Long idU, @RequestBody DemandeCredit demandeCredit) {
+        DemandeCredit createdDemandeCredit = iDemandeCreditService.createDemandeCredit(idU, demandeCredit);
+        return ResponseEntity.ok(createdDemandeCredit);
+    }
+
+
+
+
 
 
 }

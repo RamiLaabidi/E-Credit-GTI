@@ -61,6 +61,30 @@ public class UserRestController {
     public ResponseEntity<FullUserResponseForNotifications> findAllUsersNotif(@PathVariable("user-idU") Long idU) {
         return ResponseEntity.ok(iUserService.findUserWithnotifications(idU));
     }
+
+
+    /*@PutMapping("/assignInvestmentToVenture/{id}/{idV}")
+    public User assignCreditToClient(@PathVariable("id") Long id, @PathVariable("idC") Long idC) {
+
+        return iUserService.assignCreditToClient(id, idC);
+
+    }*/
+
+
+    @PostMapping("/CalculRatioDendettement")
+    public double CalculRatioDendettement(@RequestBody User user) {
+        double chargesMensuelles = user.getChargesMensuelles();
+        double revenuMensuel = user.getRevenuMensuel();
+        double salaire = user.getSalaire();
+        return (chargesMensuelles / revenuMensuel + salaire) * 100;
+    }
+    @PostMapping("/calculateRepaymentCapacity")
+    public double calculateRepaymentCapacity(@RequestBody User user) {
+        double chargesMensuelles = user.getChargesMensuelles();
+        double revenuMensuel = user.getRevenuMensuel();
+        double salaire = user.getSalaire();
+        return revenuMensuel + salaire - chargesMensuelles;
+    }
 }
     
 

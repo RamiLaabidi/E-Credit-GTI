@@ -15,6 +15,7 @@ import java.util.Optional;
 public class UserService implements IUserService{
 
     private final IUserRepository iUserRepository;
+    //private final REpo iUserRepository;
     private final DemandeCreditClient client;
     private  final NotificationClient notificationClient;
 
@@ -87,6 +88,26 @@ public class UserService implements IUserService{
     }
 
 
+    /*public User assignCreditToClient(Long idC, Long idU){
+        User user = iUserRepository.findById(idU).orElse(null);
+        DemandeCredit demandeCredit = .findById(idV).orElse(null);
+        investment.setVenture(venture);
+        return investmentRepository.save(investment);
+    }*/
+
+    public double CalculRatioDendettement(User user) {
+        double chargesMensuelles = user.getChargesMensuelles();
+        double revenuMensuel = user.getRevenuMensuel();
+        double salaire = user.getSalaire();
+        return (chargesMensuelles / revenuMensuel + salaire) * 100;
+    }
+
+    public double calculateRepaymentCapacity(User user) {
+        double chargesMensuelles = user.getChargesMensuelles();
+        double revenuMensuel = user.getRevenuMensuel();
+        double salaire = user.getSalaire();
+        return revenuMensuel + salaire - chargesMensuelles;
+    }
 
     }
 
