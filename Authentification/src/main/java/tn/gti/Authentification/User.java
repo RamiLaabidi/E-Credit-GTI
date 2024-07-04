@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,6 +43,10 @@ public class User implements UserDetails {
     Double chargesMensuelles;
     Double salaire;
     TJob job;
+    Integer age;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<CompteBancaire> compteBancaires;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

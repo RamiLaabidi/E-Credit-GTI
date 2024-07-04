@@ -2,8 +2,8 @@ package tn.gti.Authentification;
 
 public enum TJob {
 
-        INGÉNIEUR,
-        MÉDECIN,
+        INGENIEUR,
+        MEDECIN,
         AVOCAT,
         ENSEIGNANT,
         COMPTABLE,
@@ -11,7 +11,7 @@ public enum TJob {
         CONSULTANT,
         AGENT_IMMOBILIER,
         ARTISTE,
-        ÉLECTRICIEN,
+        ELECTRICIEN,
         PLOMBIER,
         AGRICULTEUR,
         CHAUFFEUR,
@@ -21,5 +21,5 @@ public enum TJob {
         ARCHITECTE,
         ANALYSTE_FINANCIER,
         BANQUIER,
-        EMPLOYÉ_ADMINISTRATIF
+        EMPLOYE_ADMINISTRATIF
 }
