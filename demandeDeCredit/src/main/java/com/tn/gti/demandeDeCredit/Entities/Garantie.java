@@ -27,4 +27,6 @@ public class Garantie implements Serializable {
     private Set<DemandeCredit> demandeCreditSet;
 
 
+
+
 }

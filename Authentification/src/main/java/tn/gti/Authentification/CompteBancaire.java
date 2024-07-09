@@ -18,16 +18,15 @@ public class CompteBancaire implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCompte;
-    private String numeroCompte;
+    private Integer numeroCompte;
     private float solde;
-    private Date dateOverture;
+    private Date dateOvertureCompte;
     @Enumerated(EnumType.STRING)
     private TCompte typeCompte;
     private float montantRouge;
-    private float penaliteDeRetardDePaiement; // Pénalité de retard de paiement
-    private int nombreDeRetardDePaiement; // Nombre de retards de paiement
-    private float scoreCompte; // Score pour le compte, utilisé pour évaluer le crédit
-    private Etat etatCompte;
+    private Integer nombreDeRetardDePaiement;
+    @Enumerated(EnumType.STRING)
+     private EtatC etatDeCompte;
 
 
 

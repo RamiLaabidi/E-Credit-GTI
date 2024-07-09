@@ -33,16 +33,15 @@ public class User implements UserDetails {
     Date dateDeNaissance;
     @Enumerated(EnumType.STRING)
     TypeSF situationFamiliale;
-    String email;
     File photo;
-    String numeroDeCompte;
-    Date dateOuvertureCompte;
     Long numCin;
+    String email;
     String motDePasse;
     Double revenuMensuel;
     Double chargesMensuelles;
     Double salaire;
-    TJob job;
+    @Enumerated(EnumType.STRING)
+    EmploymentType employmentType;
     Integer age;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

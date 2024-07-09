@@ -15,19 +15,18 @@ import java.util.Set;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DossierCredit implements Serializable {
-
+public class ContratCredit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idDoss;
-    Date dateCréation;
-    Date dateMiseAJour;
-    @Enumerated(EnumType.STRING)
-    DStatus statut;
-    String notes;
+    Long idC;
+    String signature;
+    String condition;
+    Date dateC;
+    @OneToOne
+    DemandeCredit demandeCredit;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="dossierCredit")
-    private Set<DemandeCredit> demandeCredits;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="contratCredit")
+    private Set<Echeance> echeances;
 
 
 }

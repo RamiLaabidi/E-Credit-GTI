@@ -1,8 +1,6 @@
 package com.tn.gti.demandeDeCredit.Services;
 
-import com.tn.gti.demandeDeCredit.Entities.DossierCredit;
 import com.tn.gti.demandeDeCredit.Entities.Garantie;
-import com.tn.gti.demandeDeCredit.Repositories.IDossierCreditRepository;
 import com.tn.gti.demandeDeCredit.Repositories.IGarantieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

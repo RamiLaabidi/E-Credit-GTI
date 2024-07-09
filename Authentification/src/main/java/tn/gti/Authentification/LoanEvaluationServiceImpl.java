@@ -7,112 +7,104 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Service
 @RequestMapping("/evaluation")
 @RequiredArgsConstructor
-public class LoanEvaluationServiceImpl {
+public class LoanEvaluationServiceImpl implements LoanEvaluationService {
+    @Override
+    public double calculateScore(User user) {
+        // Calcul des scores individuels pour revenuMensuel, salaire et chargesMensuelles
+        double scoreRevenuMensuel;
+        double scoreSalaire;
+        double scoreChargesMensuelles;
 
-    public double calculateScore(User user, CompteBancaire compteBancaire, DemandeCredit demandeCredit) {
-        // Implémentation du calcul du score basé sur les critères donnés
+        // Définir les seuils et les scores pour revenuMensuel
+        if (user.getRevenuMensuel() < 1000) {
+            scoreRevenuMensuel = 1;
+        } else if (user.getRevenuMensuel() >= 1000 && user.getRevenuMensuel() < 3000) {
+            scoreRevenuMensuel = 2.5;
+        } else {
+            scoreRevenuMensuel = 3.5;
+        }
+
+        // Définir les seuils et les scores pour salaire
+        if (user.getSalaire() < 1500) {
+            scoreSalaire = 1;
+        } else if (user.getSalaire() >= 1500 && user.getSalaire() < 2500) {
+            scoreSalaire = 2.5;
+        } else {
+            scoreSalaire = 3.5;
+        }
+
+        // Définir les seuils et les scores pour chargesMensuelles
+        if (user.getChargesMensuelles() < 500) {
+            scoreChargesMensuelles = 3.5;
+        } else if (user.getChargesMensuelles() >= 500 && user.getChargesMensuelles() < 2000) {
+            scoreChargesMensuelles = 2.5;
+        } else {
+            scoreChargesMensuelles = 1;
+        }
+
+        // Calcul du revenu net score
+        double revenuNetScore = scoreRevenuMensuel + scoreSalaire - scoreChargesMensuelles;
+        // Calcul des autres scores
         double ageScore = calculateAgeScore(user.getAge());
-        double employmentScore = calculateEmploymentScore(user.getJob());
-        double creditScore = compteBancaire.getScoreCompte();
+        double employmentScore = calculateEmploymentScore(user.getEmploymentType());
 
         // Poids des critères
-        double w1 = 0.3;
-        double w2 = 0.4;
-        double w3 = 0.3;
+        double w1 = 0.4;
+        double w2 = 0.2;
+        double w3 = 0.6;
 
         // Calcul du score total
-        double score = w1 * ageScore + w2 * employmentScore + w3 * creditScore;
-
-        return score;
+        return w1 * ageScore + w2 * employmentScore + w3 * revenuNetScore;
     }
 
-    public String evaluateRisk(User user, CompteBancaire compteBancaire, DemandeCredit demandeCredit) {
-        // Modèle de risque linéaire hypothétique
-        double alpha = 0.6;
-        double beta = 0.2;
-        double gamma = 0.1;
+    @Override
+    public String evaluateRisk(CompteBancaire compteBancaire, DemandeCredit demandeCredit ) {
+        double riskScore = 0.0;
+        // Calculer le risque basé sur l'état du compte
+        if (compteBancaire.getEtatDeCompte() == EtatC.NEGATIF) {
+            riskScore += 50; // Poids pour un état de compte négatif
+             }
+        riskScore += compteBancaire.getNombreDeRetardDePaiement() * 0.5; // Poids pour le nombre de retards
 
-        // Calcul du risque
-        double risk = alpha * compteBancaire.getScoreCompte() + beta * compteBancaire.getNombreDeRetardDePaiement() + gamma * demandeCredit.getMontant() / (user.getRevenuMensuel() * 12);
+        riskScore += (demandeCredit.getMontant() /100 )* 0.4; // Poids pour le nombre de retards
 
-        // Déterminer le niveau de risque en fonction de la valeur de risk
-        if (risk < 300) {
+        if (riskScore < 200) {
             return "Faible";
-        } else if (risk < 500) {
+        } else if (riskScore >= 200 && riskScore < 300) {
             return "Modéré";
         } else {
             return "Élevé";
         }
     }
 
-    public String approveCredit(User user, CompteBancaire compteBancaire, DemandeCredit demandeCredit) {
-        double score = calculateScore(user, compteBancaire, demandeCredit);
-        String riskLevel = evaluateRisk(user, compteBancaire, demandeCredit);
+   @Override
+   public String approveCredit(User user, CompteBancaire compteBancaire, DemandeCredit demandeCredit) {
+       double score = calculateScore(user);
+       String riskLevel = evaluateRisk( compteBancaire, demandeCredit);
 
-        // Logique de décision pour approuver ou non le crédit
-        if (score > 70 && riskLevel.equals("Faible")) {
-            return "Crédit approuvé";
-        } else if (score > 60 && riskLevel.equals("Modéré")) {
-            return "Crédit approuvé avec conditions";
-        } else {
-            return "Crédit refusé";
-        }
-    }
+       // Logique de décision pour approuver ou non le crédit
+       if (score > 70 && riskLevel.equals("Faible")) {
+           return "Crédit approuvé";
+       } else if (score > 640 && riskLevel.equals("Modéré")) {
+           return "Crédit approuvé avec conditions";
+       } else {
+           return "Crédit refusé";
+       }
+   }
 
-    private double calculateAgeScore(Integer age) {
+    @Override
+    public double calculateAgeScore(Integer age) {
         return 100 - age;
     }
-
-    private double calculateEmploymentScore(TJob job) {
-        switch (job) {
-            case INGENIEUR:
-                return 90;
-            case MEDECIN:
-                return 95;
-            case AVOCAT:
-                return 85;
-            case ENSEIGNANT:
-                return 80;
-            case COMPTABLE:
-                return 86;
-            case INFORMATICIEN:
-                return 88;
-            case CONSULTANT:
-                return 75;
-            case AGENT_IMMOBILIER:
-                return 70;
-            case ARTISTE:
-                return 60;
-            case ELECTRICIEN:
-                return 71;
-            case PLOMBIER:
-                return 72;
-            case AGRICULTEUR:
-                return 65;
-            case CHAUFFEUR:
-                return 59;
-            case VENDEUR:
-                return 65;
-            case GESTIONNAIRE:
-                return 74;
-            case ENTREPRENEUR:
-                return 80;
-            case ARCHITECTE:
-                return 85;
-            case ANALYSTE_FINANCIER:
-                return 90;
-            case BANQUIER:
-                return 88;
-            case EMPLOYE_ADMINISTRATIF:
-                return 90;
-        }
-        return 0;
+    @Override
+    public double calculateEmploymentScore(EmploymentType employmentType) {
+        return switch (employmentType) {
+            case PUBLIC -> 90;
+            case PRIVATE -> 80;
+            case SELF_EMPLOYED -> 60;
+        };
     }
 }
 
-    /*private double calculateLoanAmountScore ( double loanAmount, double annualIncome){
-            // Implémentation du score basé sur le montant du prêt par rapport au revenu
-            // Exemple simplifié : score plus élevé pour des ratios plus faibles
-            return 100 - (loanAmount / annualIncome) * 100;
-        }*/
+
 

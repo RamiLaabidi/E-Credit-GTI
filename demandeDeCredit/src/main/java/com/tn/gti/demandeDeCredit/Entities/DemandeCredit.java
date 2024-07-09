@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -33,11 +32,12 @@ public class DemandeCredit implements Serializable {
 
     Long idU;
 
-    @ManyToOne
-    DossierCredit dossierCredit;
+    @OneToOne
+    ContratCredit contratCredit;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="demandeCredit")
     private Set<PieceJointe> pieceJointes;
+
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Garantie> garanties;

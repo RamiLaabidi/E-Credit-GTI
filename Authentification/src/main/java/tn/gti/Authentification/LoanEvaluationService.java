@@ -2,6 +2,11 @@ package tn.gti.Authentification;
 
 public interface LoanEvaluationService {
 
-    public double evaluateRisk(User user, CompteBancaire compteBancaire, DemandeCredit demandeCredit);
+     String evaluateRisk( CompteBancaire compteBancaire, DemandeCredit demandeCredit);
+     double calculateScore(User user);
+     double calculateAgeScore(Integer age);
+     double calculateEmploymentScore(EmploymentType employmentType);
+     String approveCredit(User user, CompteBancaire compteBancaire, DemandeCredit demandeCredit);
+
 
 }

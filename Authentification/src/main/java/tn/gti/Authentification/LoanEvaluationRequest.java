@@ -11,6 +11,4 @@ public class LoanEvaluationRequest {
     private CompteBancaire compteBancaire;
     private DemandeCredit demandeCredit;
 
-    // Constructeurs, getters et setters restent les mêmes
-    // ...
 }

@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = "4e9d6c3b8f1a2c7d5e3f9028461a3b7c9d4e8f2b1c7a5d6e3f9018472b6c8d4e";
+    private static final String SECRET_KEY = "4a2cb714e3a7f6d2c2954b8a2cb714e3a7f6d2c2954b8a2cb714e3a7f6d2c295";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

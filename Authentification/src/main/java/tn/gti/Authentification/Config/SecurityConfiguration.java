@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/api/v1/auth/**").permitAll()
+                                //.requestMatchers("/evaluation/evaluateRisk").permitAll()
                                 .requestMatchers("/user/with-demandeCredit/**").permitAll() // Permettre l'accès sans authentification à ce chemin spécifique avec un paramètre dynamique
                                 .anyRequest().authenticated()
                 )

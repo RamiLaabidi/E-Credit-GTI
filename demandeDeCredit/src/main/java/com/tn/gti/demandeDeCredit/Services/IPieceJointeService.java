@@ -1,6 +1,5 @@
 package com.tn.gti.demandeDeCredit.Services;
 
-import com.tn.gti.demandeDeCredit.Entities.DossierCredit;
 import com.tn.gti.demandeDeCredit.Entities.PieceJointe;
 
 import java.util.List;

@@ -1,8 +1,10 @@
 package com.tn.gti.demandeDeCredit.Services;
 
+import com.tn.gti.demandeDeCredit.Entities.ContratCredit;
 import com.tn.gti.demandeDeCredit.Entities.DemandeCredit;
 import com.tn.gti.demandeDeCredit.Entities.Enum.TypeU;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IDemandeCreditService {
